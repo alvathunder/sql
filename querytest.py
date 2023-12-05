@@ -32,7 +32,7 @@ if connection.is_connected():
 
     try:
         #Executing a SELECT query
-        query = "SELECT * FROM <table>;"
+        query = "SELECT * FROM <table>;" #Insert correct table name 
         cursor.execute(query)
 
         #Fetch all rows
