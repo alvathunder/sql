@@ -1,22 +1,24 @@
+#THIS IS A SCRIPT THAT READS AND COLLECTS DATA FROM A .CSV-FILE AND INSERTS IT INTO THE DATABASE
+
 import mysql.connector
 from dotenv import load_dotenv
 import os
 import csv
 
-# Load environment variables from the .env file
+#Collecting environment variables from the .env file
 load_dotenv()
 
-# Database credentials
+#Database credentials
 db_host = os.getenv("HOST")
 db_port = int(os.getenv("PORT"))
 db_user = os.getenv("USER_SQL")
 db_password = os.getenv("PASSWORD")
 db_database = os.getenv("DATABASE")
 
-# CSV file path
+#.csv-file path
 csv_file_path = "datatest.csv"
 
-# Create connection
+#Create connection
 connection = mysql.connector.connect(
     host=db_host,
     port=db_port,
@@ -25,15 +27,15 @@ connection = mysql.connector.connect(
     database=db_database
 )
 
-# Check if the connection is successful
+#Check if the connection is successful
 if connection.is_connected():
     print("Connected to the database")
 
-    # Create a cursor object
+    #Create a cursor object
     cursor = connection.cursor()
 
     try:
-        # Create the table if it doesn't exist (you can modify this based on your table schema)
+        # Create the table if it doesn't exist
         create_table_query = """
         CREATE TABLE IF NOT EXISTS movies (
             id INT PRIMARY KEY,
@@ -44,7 +46,7 @@ if connection.is_connected():
         cursor.execute(create_table_query)
         print("Table created or already exists")
 
-        # Open the CSV file and insert data into the database
+        #Open the CSV file to collect the data and insert it into the database
         with open(csv_file_path, newline="") as csvfile:
             csv_reader = csv.DictReader(csvfile)
             for row in csv_reader:
@@ -52,7 +54,7 @@ if connection.is_connected():
                 insert_query = f"INSERT INTO movies (id, name, year) VALUES ({row['id']}, '{row['name']}', {row['year']});"
                 cursor.execute(insert_query)
 
-        # Commit the changes
+        #Commit the changes
         connection.commit()
         print("Data inserted successfully")
 
