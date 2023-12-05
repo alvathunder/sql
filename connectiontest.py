@@ -1,3 +1,5 @@
+#THIS SCRIPT CREATES A CONNECTION TO THE DATABASE
+
 import mysql.connector
 from dotenv import load_dotenv
 import os
