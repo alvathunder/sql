@@ -1,3 +1,5 @@
+#THIS SCRIPT DEMONSTRATES HOW TO CONNECT TO THE DATABASE AND PERFORM A SIMPLE SQL QUERY
+
 import mysql.connector
 from dotenv import load_dotenv
 import os
